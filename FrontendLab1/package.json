@@ -1,0 +1,29 @@
+{
+  "name": "frontendlab1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "build:css": "tailwindcss build assets/css/tailwind.css -o public/css/tailwind.css"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.7.7",
+    "core-js": "^3.25.3",
+    "nuxt": "^3.13.2",
+    "sass": "^1.81.0",
+    "vue": "^3.5.12",
+    "vue-server-renderer": "^2.2.6",
+    "vue-template-compiler": "^0.1.0",
+    "vuetify": "^3.7.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "sass-embedded": "^1.80.6",
+    "tailwindcss": "^3.4.14"
+  }
+}
