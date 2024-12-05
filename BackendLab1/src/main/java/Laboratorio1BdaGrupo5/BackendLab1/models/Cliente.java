@@ -13,8 +13,10 @@ public class Cliente {
     private Integer id_cliente;
 
     private String nombre;
-    private String direccion;
     private String email;
     private String telefono;
     private String password; //Encriptada con BCrypt
+    @Column(name = "id_direccion")
+    private String idDireccion;
+
 }
