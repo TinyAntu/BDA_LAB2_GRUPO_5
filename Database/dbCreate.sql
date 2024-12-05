@@ -1,10 +1,10 @@
 -------------------------------------------------------
--- Crear lab1bda
--- Database: lab1bda
+-- Crear lab2bda
+-- Database: lab2bda
 -------------------------------------------------------
-DROP DATABASE IF EXISTS "lab1bda";
+DROP DATABASE IF EXISTS "lab2bda";
 
-CREATE DATABASE "lab1bda"
+CREATE DATABASE "lab2bda"
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -14,7 +14,7 @@ CREATE DATABASE "lab1bda"
     CONNECTION LIMIT = -1
     TEMPLATE = template0;
 
-\c lab1bda
+\c lab2bda
 
 CREATE EXTENSION postgis;
 
