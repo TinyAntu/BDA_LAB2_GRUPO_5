@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
 )
 
 REM Execute the dump.sql file
-psql -U postgres -h localhost -d lab1bda -f dump.sql
+psql -U postgres -h localhost -d lab2bda -f dump.sql
 if %errorlevel% neq 0 (
     echo Error occurred while executing dump.sql
     pause
