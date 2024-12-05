@@ -16,6 +16,8 @@ CREATE DATABASE "lab1bda"
 
 \c lab1bda
 
+CREATE EXTENSION postgis;
+
 -------------------------------------------------------
 -- Table "categoria"
 -------------------------------------------------------
