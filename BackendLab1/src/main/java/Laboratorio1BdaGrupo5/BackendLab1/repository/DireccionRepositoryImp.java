@@ -20,7 +20,7 @@ public class DireccionRepositoryImp implements DireccionRepository{
 
     @Override
     public Direccion getDireccionById(Integer id) {
-        String queryText = "SELECT id_direccion, tipo, ST_AsText(geom) AS geom FROM direccion WHERE id_direccion = :id";
+        String queryText = "SELECT id_direccion, ST_AsText(geom) AS geom FROM direccion WHERE id_direccion = :id";
 
         try (Connection connection = sql2o.open()) {
             Map<String, Object> row = connection.createQuery(queryText)
@@ -40,7 +40,6 @@ public class DireccionRepositoryImp implements DireccionRepository{
             // Return the Direccion object
             return new Direccion(
                     (Integer) row.get("id_direccion"),
-                    (String) row.get("tipo"),
                     geom
             );
         } catch (Exception e) {
@@ -49,14 +48,13 @@ public class DireccionRepositoryImp implements DireccionRepository{
     }
 
     @Override
-    public Direccion createDireccion(String tipo, Double latitud, Double longitud) {
+    public Direccion createDireccion(Double latitud, Double longitud) {
         String queryText = "INSERT INTO direccion(tipo, geom) " +
                 "VALUES (:tipo, ST_SetSRID(ST_Point(:longitud, :latitud), 4326))";
 
         try (Connection connection = sql2o.beginTransaction()) {
             // Insert into the database and fetch the generated ID
             Integer id = connection.createQuery(queryText)
-                    .addParameter("tipo", tipo)
                     .addParameter("latitud", latitud)
                     .addParameter("longitud", longitud)
                     .executeUpdate()
@@ -75,20 +73,19 @@ public class DireccionRepositoryImp implements DireccionRepository{
             connection.commit();
 
             // Return the created Direccion object
-            return new Direccion(id, tipo, geom);
+            return new Direccion(id, geom);
         } catch (Exception e) {
             throw new RuntimeException("No se pudo registrar la dirección", e);
         }
     }
 
     @Override
-    public void updateDireccion(Integer id, String tipo, Double latitud, Double longitud) {
+    public void updateDireccion(Integer id, Double latitud, Double longitud) {
         String queryText = "UPDATE direccion " +
-                "SET tipo = :tipo, geom = ST_SetSRID(ST_Point(:longitud, :latitud), 4326) " +
+                "SET geom = ST_SetSRID(ST_Point(:longitud, :latitud), 4326) " +
                 "WHERE id_direccion = :id_direccion";
         try (Connection connection = sql2o.beginTransaction()) {
             connection.createQuery(queryText)
-                    .addParameter("tipo", tipo)
                     .addParameter("latitud", latitud)
                     .addParameter("longitud", longitud)
                     .addParameter("id_direccion", id)

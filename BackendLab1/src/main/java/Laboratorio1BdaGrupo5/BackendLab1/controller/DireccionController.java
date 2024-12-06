@@ -26,12 +26,10 @@ public class DireccionController {
 
     @PostMapping("/")
     public ResponseEntity<Direccion> createDireccion(
-            @RequestParam String tipo,
             @RequestParam Double latitud,
             @RequestParam Double longitud) {
         try {
-            System.out.println("TIPO: " + tipo);
-            Direccion direccion = direccionService.createDireccion(tipo, latitud, longitud);
+            Direccion direccion = direccionService.createDireccion(latitud, longitud);
             return ResponseEntity.ok(direccion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -41,11 +39,10 @@ public class DireccionController {
     @PutMapping("/")
     public ResponseEntity<String> updateDireccion(
             @RequestParam Integer id,
-            @RequestParam String tipo,
             @RequestParam Double latitud,
             @RequestParam Double longitud) {
         try {
-            direccionService.updateDireccion(id, tipo, latitud, longitud);
+            direccionService.updateDireccion(id, latitud, longitud);
             return ResponseEntity.ok("Direccion actualizada exitosamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

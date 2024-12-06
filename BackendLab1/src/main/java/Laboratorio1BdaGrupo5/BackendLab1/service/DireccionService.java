@@ -23,17 +23,17 @@ public class DireccionService {
         }
     }
 
-    public Direccion createDireccion(String tipo, Double latitud, Double longitud) {
+    public Direccion createDireccion(Double latitud, Double longitud) {
         try {
-            return direccionRepository.createDireccion(tipo, latitud, longitud);
+            return direccionRepository.createDireccion(latitud, longitud);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear la direccion", e);
         }
     }
 
-    public void updateDireccion(Integer id, String tipo, Double latitud, Double longitud) {
+    public void updateDireccion(Integer id, Double latitud, Double longitud) {
         try {
-            direccionRepository.updateDireccion(id, tipo, latitud, longitud);
+            direccionRepository.updateDireccion(id, latitud, longitud);
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la direccion", e);
         }

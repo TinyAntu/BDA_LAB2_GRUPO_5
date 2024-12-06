@@ -169,7 +169,7 @@ export default {
       axios
         .post("http://localhost:8090/api/cliente/register", {
           nombre: this.nombre,
-          id_direccion: this.direccion,
+          idDireccion: this.id_direccion,
           email: this.email,
           telefono: this.telefono,
           password: this.password,
@@ -192,7 +192,7 @@ export default {
       
       axios
         .post(
-          `http://localhost:8090/api/direccion/?tipo=Cliente&latitud=${this.latitude}&longitud=${this.longitude}`
+          `http://localhost:8090/api/direccion/?latitud=${this.latitude}&longitud=${this.longitude}`
         )
         .then((response) => {
           console.log(response);

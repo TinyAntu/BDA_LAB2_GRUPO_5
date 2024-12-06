@@ -13,7 +13,6 @@ import org.locationtech.jts.geom.Geometry;
 public class Direccion {
     private Integer id_direccion;
 
-    private String tipo;
     @JsonIgnore
     private Geometry geom;
 
