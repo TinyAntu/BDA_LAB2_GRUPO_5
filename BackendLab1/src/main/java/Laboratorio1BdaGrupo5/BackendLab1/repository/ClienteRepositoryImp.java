@@ -31,15 +31,15 @@ public class ClienteRepositoryImp implements ClienteRepository {
 
     @Override
     public void createCliente(Cliente cliente) {
-        String queryText = "INSERT INTO cliente ( nombre, direccion, email, telefono, password) " +
+        String queryText = "INSERT INTO cliente ( nombre,  email, telefono, password, idDireccion) " +
                 "VALUES (:nombre, :direccion, :email, :telefono, :password)";
         try (Connection connection = sql2o.open()) {
             connection.createQuery(queryText)
                     .addParameter("nombre", cliente.getNombre())
-                    .addParameter("direccion", cliente.getDireccion())
                     .addParameter("email", cliente.getEmail())
                     .addParameter("telefono", cliente.getTelefono())
                     .addParameter("password", cliente.getPassword())
+                    .addParameter("idDireccion", cliente.getIdDireccion())
                     .executeUpdate();
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
@@ -47,17 +47,18 @@ public class ClienteRepositoryImp implements ClienteRepository {
         }
     }
 
+    //Es responsabilidad de Direccion devolver el ID de la nueva direccion
     @Override
     public void updateCliente(Cliente cliente) {
-        String queryText = "UPDATE cliente SET nombre = :nombre, direccion = :direccion, " +
+        String queryText = "UPDATE cliente SET nombre = :nombre, id_direccion = :direccion, " +
                 "email = :email, telefono = :telefono WHERE id_cliente = :id_cliente";
         try (Connection connection = sql2o.open()) {
             System.out.println("Conexión exitosa a la base de datos");
             connection.createQuery(queryText)
                     .addParameter("nombre", cliente.getNombre())
-                    .addParameter("descripcion", cliente.getDireccion())
-                    .addParameter("precio", cliente.getEmail())
-                    .addParameter("stock", cliente.getTelefono())
+                    .addParameter("id_direccion", cliente.getIdDireccion())
+                    .addParameter("email", cliente.getEmail())
+                    .addParameter("telefono", cliente.getTelefono())
                     .addParameter("id_cliente", cliente.getId_cliente())
                     .executeUpdate();
         } catch (Exception e) {
