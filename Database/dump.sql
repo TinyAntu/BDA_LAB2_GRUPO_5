@@ -30,17 +30,17 @@ INSERT INTO producto (nombre, descripcion, precio, stock, estado, id_categoria) 
 ('Monitor Curvo', 'Monitor de 32 pulgadas con curvatura', 299.99, 0, 'agotado', 1);
 
 -- Insertar clientes
-INSERT INTO cliente (nombre, direccion, email, telefono, password) VALUES 
-('Juan Perez', 'Calle Falsa 123', 'juan.perez@example.com', '123456789', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('María Gemez', 'Avenida Siempre Viva 742', 'maria.gomez@example.com', '987654321', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Luis Rodriguez', 'Calle Mayor 5', 'luis.rodriguez@example.com', '654321789', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Ana Martinez', 'Paseo de la Reforma 12', 'ana.martinez@example.com', '456789123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Carlos Lopez', 'Calle 9 de Julio 3', 'carlos.lopez@example.com', '321654987', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Patricia Torres', 'Boulevard de la Luz 1', 'patricia.torres@example.com', '789123456', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Fernando Jimenez', 'Calle del Sol 45', 'fernando.jimenez@example.com', '159753486', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Laura Fernandez', 'Calle de la Luna 28', 'laura.fernandez@example.com', '789654123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Javier Sanchez', 'Calle de la Paz 19', 'javier.sanchez@example.com', '852147963', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Sandra Moreno', 'Calle de la Libertad 7', 'sandra.moreno@example.com', '951753486','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
+INSERT INTO cliente (nombre, id_direccion, email, telefono, password) VALUES 
+('Juan Perez', 1, 'juan.perez@example.com', '123456789', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('María Gemez', 2, 'maria.gomez@example.com', '987654321', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Luis Rodriguez', 3, 'luis.rodriguez@example.com', '654321789', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Ana Martinez', 4, 'ana.martinez@example.com', '456789123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Carlos Lopez', 5, 'carlos.lopez@example.com', '321654987', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Patricia Torres', 6, 'patricia.torres@example.com', '789123456', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Fernando Jimenez', 7, 'fernando.jimenez@example.com', '159753486', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Laura Fernandez', 8, 'laura.fernandez@example.com', '789654123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Javier Sanchez', 9, 'javier.sanchez@example.com', '852147963', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Sandra Moreno', 10, 'sandra.moreno@example.com', '951753486','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
 
 -- Insertar ordenes
 INSERT INTO orden (estado, id_cliente, total) VALUES 
@@ -88,3 +88,25 @@ INSERT INTO detalle_orden (id_orden, id_producto, cantidad, precio_unitario) VAL
 (7, 13, 1, 210.00),
 (7, 14, 1, 125.00),
 (7, 16, 1, 25.00);
+
+INSERT INTO direccion (geom) VALUES
+(ST_SetSRID(ST_MakePoint(-70.64827, -33.45694), 4326)), -- Santiago
+(ST_SetSRID(ST_MakePoint(-70.57577, -33.61169), 4326)), -- Puente Alto
+(ST_SetSRID(ST_MakePoint(-70.3954, -23.65236), 4326)),  -- Antofagasta
+(ST_SetSRID(ST_MakePoint(-71.55183, -33.02457), 4326)), -- Viña del Mar
+(ST_SetSRID(ST_MakePoint(-71.62963, -33.036), 4326)),   -- Valparaíso
+(ST_SetSRID(ST_MakePoint(-73.11684, -36.72494), 4326)), -- Talcahuano
+(ST_SetSRID(ST_MakePoint(-70.6996, -33.59217), 4326)),  -- San Bernardo
+(ST_SetSRID(ST_MakePoint(-72.94237, -41.4693), 4326)),  -- Puerto Montt
+(ST_SetSRID(ST_MakePoint(-72.59842, -38.73965), 4326)), -- Temuco
+(ST_SetSRID(ST_MakePoint(-73.04977, -36.82699), 4326)), -- Concepción
+(ST_SetSRID(ST_MakePoint(-70.29792, -18.4746), 4326)),  -- Arica
+(ST_SetSRID(ST_MakePoint(-70.74444, -34.17083), 4326)), -- Rancagua
+(ST_SetSRID(ST_MakePoint(-70.63419, -33.58331), 4326)), -- La Pintana
+(ST_SetSRID(ST_MakePoint(-71.65542, -35.4264), 4326)),  -- Talca
+(ST_SetSRID(ST_MakePoint(-70.15027, -20.21326), 4326)), -- Iquique
+(ST_SetSRID(ST_MakePoint(-68.92371, -22.45667), 4326)), -- Calama
+(ST_SetSRID(ST_MakePoint(-71.33947, -29.95332), 4326)), -- Coquimbo
+(ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326)), -- La Serena
+(ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326)), -- Chillán
+(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326));  -- Villa Alemana

@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "producto" (
 CREATE TABLE IF NOT EXISTS "cliente" (
     "id_cliente" SERIAL PRIMARY KEY,
     "nombre" VARCHAR(255) NOT NULL,
-    "direccion" VARCHAR(255),
+    "id_direccion" INTEGER,
     "email" VARCHAR(100) UNIQUE,
     "telefono" VARCHAR(20),
     "password" VARCHAR(255)
@@ -92,6 +92,18 @@ CREATE TABLE IF NOT EXISTS "detalle_orden" (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+-------------------------------------------------------
+-- Table de dirección
+-------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS "direccion" (
+    "id_direccion" SERIAL PRIMARY KEY,
+    "geom" GEOMETRY(Point, 4326) NOT NULL
+);
+
+-- Añadir índice espacial para optimizar consultas geográficas
+CREATE INDEX idx_direccion_geom ON direccion USING GIST (geom);
 
 -------------------------------------------------------
 -- Table de auditoria
