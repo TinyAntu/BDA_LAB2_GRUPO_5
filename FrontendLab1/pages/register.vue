@@ -99,11 +99,14 @@ export default {
   },
   data: () => ({
     nombre: "",
-    direccion: "",
     email: "",
     telefono: "",
     password: "",
     passwordRepeat: "",
+    direccion: "",
+    latitude: null,
+    longitude: null,
+    id_direccion: null,
     errors: {}, // Para almacenar errores
   }),
   methods: {
@@ -118,8 +121,8 @@ export default {
       }
 
       // Validar dirección (no vacío)
-      if (!this.direccion.trim()) {
-        this.errors.direccion = "La dirección no puede estar vacía.";
+      if (this.latitude === null || this.longitude === null) {
+        this.errors.direccion = "La dirección ingresada no es válida.";
       }
 
       // Validar email (formato y no vacío)
@@ -159,21 +162,44 @@ export default {
         return;
       }
 
+      // Enviar Direccion al servidor
+      this.registrarDireccion();
+
       // Enviar datos al servidor
       axios
         .post("http://localhost:8090/api/cliente/register", {
           nombre: this.nombre,
-          direccion: this.direccion,
+          id_direccion: this.direccion,
           email: this.email,
           telefono: this.telefono,
           password: this.password,
         })
         .then((response) => {
           console.log(response);
+          console.log("id_direccion: ", this.id_direccion);
           this.$router.push("/login");
         })
         .catch((error) => {
           alert("Error al registrar el usuario. Por favor, inténtelo de nuevo.");
+          console.log(error);
+        });
+    },
+
+    registrarDireccion() {
+      if (this.latitude === null || this.longitude === null) {
+        return;
+      }
+      
+      axios
+        .post(
+          `http://localhost:8090/api/direccion/?tipo=Cliente&latitud=${this.latitude}&longitud=${this.longitude}`
+        )
+        .then((response) => {
+          console.log(response);
+          this.id_direccion = response.data.id_direccion;
+        })
+        .catch((error) => {
+          alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
           console.log(error);
         });
     },
@@ -195,7 +221,8 @@ export default {
         console.log("Selected Address:", place.formatted_address);
         console.log("Latitude:", place.geometry.location.lat());
         console.log("Longitude:", place.geometry.location.lng());
-        this.direccion = place.formatted_address;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
       });
     },
   },
