@@ -31,10 +31,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(customizeRequests -> {
                     customizeRequests
                             .requestMatchers("/authenticate/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden/**", "api/report/**", "api/direccion/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden/**", "/api/direccion/**").permitAll()
-                            .requestMatchers(HttpMethod.DELETE, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden", "/api/direccion/**").permitAll()
-                            .requestMatchers(HttpMethod.PUT, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden", "/api/direccion/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden/**", "/api/report/**", "/api/direccion/**", "/api/almacen/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden/**", "/api/direccion/**", "/api/almacen/**").permitAll()
+                            .requestMatchers(HttpMethod.DELETE, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden", "/api/direccion/**", "/api/almacen/**").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden", "/api/direccion/**", "/api/almacen/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
