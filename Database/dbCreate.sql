@@ -102,6 +102,23 @@ CREATE TABLE IF NOT EXISTS "direccion" (
     "geom" GEOMETRY(Point, 4326) NOT NULL
 );
 
+-------------------------------------------------------
+-- Table "almacen"
+-------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "almacen" (
+    "id_almacen" SERIAL PRIMARY KEY,
+    "nombre" VARCHAR(255) NOT NULL,
+    "id_direccion" INTEGER NOT NULL,
+    "capacidad" INTEGER NOT NULL,
+    "estado" VARCHAR(50) NOT NULL,
+    CONSTRAINT "fk_direccion"
+        FOREIGN KEY ("id_direccion")
+        REFERENCES "direccion" ("id_direccion")
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
 -- Añadir índice espacial para optimizar consultas geográficas
 CREATE INDEX idx_direccion_geom ON direccion USING GIST (geom);
 

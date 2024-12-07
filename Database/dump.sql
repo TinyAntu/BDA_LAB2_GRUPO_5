@@ -110,3 +110,15 @@ INSERT INTO direccion (geom) VALUES
 (ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326)), -- La Serena
 (ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326)), -- Chillán
 (ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326));  -- Villa Alemana
+
+INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
+('Almacén Arica', 11, 5000, 'activo'),
+('Almacén Rancagua', 12, 4000, 'activo'),
+('Almacén La Pintana', 13, 3500, 'activo'),
+('Almacén Talca', 14, 3000, 'activo'),
+('Almacén Iquique', 15, 2500, 'activo'),
+('Almacén Calama', 16, 2000, 'activo'),
+('Almacén Coquimbo', 17, 1500, 'activo'),
+('Almacén La Serena', 18, 1000, 'inactivo'),
+('Almacén Chillán', 19, 800, 'inactivo'),
+('Almacén Villa Alemana', 20, 1200, 'activo');
