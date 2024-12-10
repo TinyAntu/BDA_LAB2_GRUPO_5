@@ -45,7 +45,7 @@
       </v-btn>
 
       <!-- Menú desplegable para funciones SQL -->
-      <v-menu offset-y>
+      <v-menu v-if="isAdmin" offset-y>
         <template v-slot:activator="{ props }">
           <v-btn text v-bind="props">
             <v-icon class="mr-2">mdi-database</v-icon>
@@ -146,6 +146,7 @@ export default {
       isAuthenticated: false, // Se inicializa en falso
       producto: null, // Producto obtenido del backend
       report: null, // Reporte obtenido del backend
+      isAdmin: false,
       isModalOpen1: false,
       isModalOpen2: false,
       precios: [], // Historial de precios
@@ -154,6 +155,10 @@ export default {
         { title: 'Precio', value: 'precio' },
       ],
     };
+  },
+  mounted() {
+    const userName = localStorage.getItem("userName");
+    this.isAdmin = userName === "admin"; //Para mostrar cosas solo a admin
   },
   computed: {
     userName() {

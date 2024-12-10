@@ -40,7 +40,8 @@ INSERT INTO cliente (nombre, id_direccion, email, telefono, password) VALUES
 ('Fernando Jimenez', 7, 'fernando.jimenez@example.com', '159753486', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
 ('Laura Fernandez', 8, 'laura.fernandez@example.com', '789654123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
 ('Javier Sanchez', 9, 'javier.sanchez@example.com', '852147963', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Sandra Moreno', 10, 'sandra.moreno@example.com', '951753486','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
+('Sandra Moreno', 10, 'sandra.moreno@example.com', '951753486','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
+('Admin', 11, 'admin@master.com', '999999999','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
 
 -- Insertar ordenes
 INSERT INTO orden (estado, id_cliente, total) VALUES 
@@ -121,4 +122,5 @@ INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
 ('Almacén Coquimbo', 17, 1500, 'activo'),
 ('Almacén La Serena', 18, 1000, 'inactivo'),
 ('Almacén Chillán', 19, 800, 'inactivo'),
-('Almacén Villa Alemana', 20, 1200, 'activo');
+('Almacén Villa Alemana', 20, 1200, 'activo'),
+('Almacen Principal', 1, 10000, 'activo');
