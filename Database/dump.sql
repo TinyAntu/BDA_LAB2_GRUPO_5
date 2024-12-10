@@ -41,7 +41,7 @@ INSERT INTO cliente (nombre, id_direccion, email, telefono, password) VALUES
 ('Laura Fernandez', 8, 'laura.fernandez@example.com', '789654123', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
 ('Javier Sanchez', 9, 'javier.sanchez@example.com', '852147963', '$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
 ('Sandra Moreno', 10, 'sandra.moreno@example.com', '951753486','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi'),
-('Admin', 11, 'admin@master.com', '999999999','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
+('Admin', 22, 'admin@master.com', '999999999','$2a$10$rnkQhE53UVWbrBukJj3qs.OglvQA8rJ.qaoFzaf2Ru6.0WQEm9Hpi');
 
 -- Insertar ordenes
 INSERT INTO orden (estado, id_cliente, total) VALUES 
@@ -111,6 +111,8 @@ INSERT INTO direccion (geom) VALUES
 (ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326)), -- La Serena
 (ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326)), -- Chillán
 (ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326));  -- Villa Alemana
+(ST_SetSRID(ST_MakePoint(-32.44655009753709, -71.23349105585842), 4326)); -- Almacen Principal
+(ST_SetSRID(ST_MakePoint(-32.50879113063442, -71.44465890255101), 4326)); -- Admin
 
 INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
 ('Almacén Arica', 11, 5000, 'activo'),
@@ -123,4 +125,4 @@ INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
 ('Almacén La Serena', 18, 1000, 'inactivo'),
 ('Almacén Chillán', 19, 800, 'inactivo'),
 ('Almacén Villa Alemana', 20, 1200, 'activo'),
-('Almacen Principal', 1, 10000, 'activo');
+('Almacen Principal', 21, 10000, 'activo');
