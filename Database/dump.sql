@@ -110,9 +110,9 @@ INSERT INTO direccion (geom) VALUES
 (ST_SetSRID(ST_MakePoint(-71.33947, -29.95332), 4326)), -- Coquimbo
 (ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326)), -- La Serena
 (ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326)), -- Chillán
-(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326));  -- Villa Alemana
-(ST_SetSRID(ST_MakePoint(-32.44655009753709, -71.23349105585842), 4326)); -- Almacen Principal
-(ST_SetSRID(ST_MakePoint(-32.50879113063442, -71.44465890255101), 4326)); -- Admin
+(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326)), -- Villa Alemana
+(ST_SetSRID(ST_MakePoint(-70.64421, -33.41605), 4326)), -- Costanera Center 21
+(ST_SetSRID(ST_MakePoint(-70.70405, -33.44889), 4326)); -- USACH 22  
 
 INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
 ('Almacén Arica', 11, 5000, 'activo'),
