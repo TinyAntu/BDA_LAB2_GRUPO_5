@@ -25,6 +25,7 @@ public class DireccionService {
 
     public Direccion createDireccion(Double latitud, Double longitud) {
         try {
+            System.out.println("latitud: " + latitud + " longitud: " + longitud);
             return direccionRepository.createDireccion(latitud, longitud);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear la direccion", e);

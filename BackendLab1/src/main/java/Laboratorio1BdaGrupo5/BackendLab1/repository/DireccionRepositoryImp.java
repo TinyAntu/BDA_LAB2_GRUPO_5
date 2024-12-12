@@ -49,8 +49,10 @@ public class DireccionRepositoryImp implements DireccionRepository{
 
     @Override
     public Direccion createDireccion(Double latitud, Double longitud) {
-        String queryText = "INSERT INTO direccion(tipo, geom) " +
-                "VALUES (:tipo, ST_SetSRID(ST_Point(:longitud, :latitud), 4326))";
+        System.out.println("latitud: " + latitud + " longitud: " + longitud);
+
+        String queryText = "INSERT INTO direccion(geom) " +
+                "VALUES (ST_SetSRID(ST_Point(:longitud, :latitud), 4326))";
 
         try (Connection connection = sql2o.beginTransaction()) {
             // Insert into the database and fetch the generated ID
