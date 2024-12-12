@@ -137,4 +137,28 @@ public class OrdenRepositoryImp implements OrdenRepository {
             throw new RuntimeException("Error al eliminar la orden", e);
         }
     }
+
+    @Override
+    public List<Orden> filtrarOrdenesEnviadasDentro10km(int idAlmacen){
+        String query = """
+                SELECT o.*
+                FROM orden o
+                JOIN cliente c ON o.id_cliente = c.id_cliente
+                JOIN direccion d_cliente ON c.id_direccion = d_cliente.id_direccion
+                JOIN almacen a ON a.id_almacen = :idAlmacen  -- Cambia 1 por el ID del almacén que quieras probar
+                JOIN direccion d_almacen ON a.id_direccion = d_almacen.id_direccion
+                WHERE
+                    ST_DWithin(
+                        ST_Transform(d_cliente.geom, 3857),   -- Transformación a SRID métrico
+                        ST_Transform(d_almacen.geom, 3857),  -- Transformación a SRID métrico
+                        10000                                -- Radio en metros (10 km)
+                    )
+                    AND o.estado = 'enviada';  -- Filtra solo órdenes con estado 'enviada'         
+                """;
+        return sql2o.open()
+                .createQuery(query)
+                .addParameter("idAlmacen", idAlmacen)
+                .executeAndFetch(Orden.class);
+    }
+
 }
