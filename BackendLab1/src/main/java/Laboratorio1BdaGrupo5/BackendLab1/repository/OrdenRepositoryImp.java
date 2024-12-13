@@ -155,10 +155,14 @@ public class OrdenRepositoryImp implements OrdenRepository {
                     )
                     AND o.estado = 'enviada';  -- Filtra solo órdenes con estado 'enviada'         
                 """;
-        return sql2o.open()
-                .createQuery(query)
-                .addParameter("idAlmacen", idAlmacen)
-                .executeAndFetch(Orden.class);
+        try {
+            return sql2o.open()
+                    .createQuery(query)
+                    .addParameter("idAlmacen", idAlmacen)
+                    .executeAndFetch(Orden.class);
+        } catch (Exception e) {
+            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error al filtrar órdenes", e);
+        }
     }
-
 }

@@ -94,4 +94,18 @@ public class OrdenService {
         }
 
     }
+
+    public List<Orden> getOrdenesByRadius(Integer almacenId) {
+        try {
+            System.out.println("ID: "+ almacenId);
+            List<Orden> ordenes = ordenRepository.filtrarOrdenesEnviadasDentro10km(almacenId);
+            if (ordenes != null) {
+                return ordenes;
+            } else {
+                throw new RuntimeException("No se encontraron ordenes");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener las ordenes", e);
+        }
+    }
 }

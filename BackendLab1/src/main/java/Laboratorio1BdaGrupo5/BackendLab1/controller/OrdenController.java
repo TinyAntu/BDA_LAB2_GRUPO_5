@@ -102,4 +102,14 @@ public class OrdenController {
         }
     }
 
+    @GetMapping("/filtrarOrdenesPorAlmacen/{almacenId}")
+    public ResponseEntity<List<Orden>> getOrdenesByRadius(@PathVariable Integer almacenId) {
+        try {
+            List<Orden> ordenes = ordenService.getOrdenesByRadius(almacenId);
+            return ResponseEntity.ok(ordenes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
+    }
 }

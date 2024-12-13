@@ -19,6 +19,15 @@ CREATE DATABASE "lab2bda"
 CREATE EXTENSION postgis;
 
 -------------------------------------------------------
+-- Table de dirección
+-------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS "direccion" (
+    "id_direccion" SERIAL PRIMARY KEY,
+    "geom" GEOMETRY(Point, 4326) NOT NULL
+);
+
+-------------------------------------------------------
 -- Table "categoria"
 -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS "categoria" (
@@ -53,7 +62,12 @@ CREATE TABLE IF NOT EXISTS "cliente" (
     "id_direccion" INTEGER,
     "email" VARCHAR(100) UNIQUE,
     "telefono" VARCHAR(20),
-    "password" VARCHAR(255)
+    "password" VARCHAR(255),
+    CONSTRAINT "fk_direccion"
+        FOREIGN KEY ("id_direccion")
+        REFERENCES "direccion" ("id_direccion")
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 );
 
 -------------------------------------------------------
@@ -91,15 +105,6 @@ CREATE TABLE IF NOT EXISTS "detalle_orden" (
         REFERENCES "producto" ("id_producto")
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
-
--------------------------------------------------------
--- Table de dirección
--------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS "direccion" (
-    "id_direccion" SERIAL PRIMARY KEY,
-    "geom" GEOMETRY(Point, 4326) NOT NULL
 );
 
 -------------------------------------------------------
