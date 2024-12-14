@@ -257,3 +257,36 @@ CREATE TRIGGER after_insert_detalle_orden
 AFTER INSERT ON detalle_orden
 FOR EACH ROW
 EXECUTE FUNCTION update_inventory();
+
+-------------------------------------------------------------
+------------ FUNCION PARA PEDIDOS FUERA DE UN RADIO DE 100 KM
+-------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION pedidos_fuera_radio_100km(tienda_nombre TEXT)
+RETURNS TABLE (
+    id_orden INTEGER,
+    fecha_orden TIMESTAMP,
+    estado VARCHAR(50),
+    id_cliente INT,
+    total NUMERIC
+) AS $$
+BEGIN
+    RETURN QUERY
+    WITH direccion_tienda AS (
+        SELECT geom
+        FROM direccion
+        JOIN almacen ON almacen.id_direccion = direccion.id_direccion
+        WHERE almacen.nombre = tienda_nombre
+    ),
+    pedidos AS (
+        SELECT cliente.id_direccion, orden.id_orden, orden.fecha_orden, orden.estado, orden.id_cliente, orden.total
+        FROM orden
+        JOIN cliente ON orden.id_cliente = cliente.id_cliente
+    )
+    SELECT p.id_orden, p.fecha_orden, p.estado, p.id_cliente, p.total
+    FROM pedidos p
+    JOIN direccion d ON p.id_direccion = d.id_direccion
+    CROSS JOIN direccion_tienda t
+    WHERE ST_Distance(d.geom, t.geom) > 100000; -- Distancia en metros
+END;
+$$ LANGUAGE plpgsql;
