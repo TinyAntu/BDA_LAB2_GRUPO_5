@@ -57,4 +57,8 @@ public class AlmacenService {
             throw new RuntimeException("Error al obtener el Almacen", e);
         }
     }
+
+    public Almacen getAlmacenMasCercano(Integer idCliente) {
+        return almacenRepository.findAlmacenMasCercano(idCliente);
+    }
 }

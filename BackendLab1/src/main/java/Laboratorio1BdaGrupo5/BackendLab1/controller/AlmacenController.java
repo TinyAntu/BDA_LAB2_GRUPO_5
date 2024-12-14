@@ -68,4 +68,14 @@ public class AlmacenController {
                     .body("Error al eliminar el almacen");
         }
     }
+
+    @GetMapping("/almacenMasCercano/{idCliente}")
+    public ResponseEntity<Almacen> getAlmacenMasCercano(@PathVariable Integer idCliente) {
+        try {
+            Almacen almacenMasCercano = almacenService.getAlmacenMasCercano(idCliente);
+            return ResponseEntity.ok(almacenMasCercano);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

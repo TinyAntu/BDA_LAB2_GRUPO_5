@@ -83,4 +83,24 @@ public class AlmacenRepositoryImp implements AlmacenRepository{
             throw new RuntimeException("No se pudo obtener el Almacen", e);
         }
     }
+
+    public Almacen findAlmacenMasCercano(Integer idCliente) {
+        String queryText = "SELECT a.id_almacen, a.nombre, a.id_direccion, a.capacidad, a.estado " +
+                "FROM almacen a " +
+                "JOIN direccion d ON a.id_direccion = d.id_direccion " +
+                "JOIN direccion c ON c.id_direccion = ( " +
+                "   SELECT id_direccion FROM cliente WHERE id_cliente = :idCliente" +
+                ") " +
+                "ORDER BY ST_Distance(c.geom, d.geom) ASC " +
+                "LIMIT 1";
+        try (Connection connection = sql2o.open()) {
+            Query query = connection.createQuery(queryText)
+                    .addParameter("idCliente", idCliente);
+            return query.executeAndFetchFirst(Almacen.class);
+        } catch (Exception e) {
+            System.err.println("Error al buscar el almacén más cercano: " + e.getMessage());
+            e.printStackTrace(); // Esto te dará más información sobre el error
+            throw new RuntimeException("Error al buscar el almacén más cercano", e);
+        }
+    }
 }
