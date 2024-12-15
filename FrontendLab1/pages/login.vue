@@ -48,6 +48,7 @@ methods: {
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("userId", response.data.userId);
       localStorage.setItem("userName", response.data.name);
+      localStorage.setItem("isAdmin", response.data.name === "Admin");
       
       // Redirigir al usuario a la página principal o dashboard
       this.$router.push('/');

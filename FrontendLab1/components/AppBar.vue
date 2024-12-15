@@ -225,8 +225,6 @@ export default {
   mounted() {
     this.actualizarEstadoAutenticacion(); // Actualiza el estado autenticado
     this.userName = localStorage.getItem("userName") || ""; 
-    const userName = localStorage.getItem("userName");
-    this.isAdmin = userName === "Admin"; //Para mostrar cosas solo a admin
   },
   watch: {
     // Observa los cambios en la ruta para actualizar el estado de autenticación
@@ -238,6 +236,7 @@ export default {
     actualizarEstadoAutenticacion() {
       // Verifica el estado de autenticación desde localStorage
       this.isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+      this.isAdmin = localStorage.getItem("isAdmin") === "true";
       if (!this.isAuthenticated && this.$route.path !== "/register" && this.$route.path !== "/login") {
         this.$router.push("/login"); // Redirige a la página de inicio de sesión
       }
@@ -252,6 +251,7 @@ export default {
       localStorage.removeItem("jwtToken");
       localStorage.removeItem("userName");
       localStorage.removeItem("cartItems");
+      localStorage.removeItem("isAdmin");
       this.actualizarEstadoAutenticacion();
       alert("Sesión cerrada exitosamente");
     },
