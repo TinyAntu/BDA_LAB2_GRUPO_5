@@ -31,15 +31,16 @@ public class ClienteRepositoryImp implements ClienteRepository {
 
     @Override
     public void createCliente(Cliente cliente) {
-        String queryText = "INSERT INTO cliente ( nombre,  email, telefono, password, idDireccion) " +
-                "VALUES (:nombre, :direccion, :email, :telefono, :password)";
+
+        String queryText = "INSERT INTO cliente ( nombre,  email, telefono, password, id_direccion) " +
+                "VALUES (:nombre, :direccion, :email, :telefono, :password, :id_direccion)";
         try (Connection connection = sql2o.open()) {
             connection.createQuery(queryText)
                     .addParameter("nombre", cliente.getNombre())
                     .addParameter("email", cliente.getEmail())
                     .addParameter("telefono", cliente.getTelefono())
                     .addParameter("password", cliente.getPassword())
-                    .addParameter("idDireccion", cliente.getIdDireccion())
+                    .addParameter("id_direccion", cliente.getIdDireccion())
                     .executeUpdate();
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());

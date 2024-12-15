@@ -38,6 +38,15 @@
         </v-list>
       </v-menu>
 
+      <v-menu v-if="isAdmin">
+        <v-list-item>
+          <v-btn text href="/order10">Ordenes10km</v-btn>
+        </v-list-item>
+        <v-list-item>
+          <v-btn text href="/order100">Ordenes100kmMain</v-btn>
+        </v-list-item> 
+      </v-menu>
+
       <!-- Botón del carrito de compras -->
       <v-btn icon color="white" href="/cart">
         <v-icon>mdi-cart-outline</v-icon>
@@ -49,10 +58,15 @@
         <template v-slot:activator="{ props }">
           <v-btn text v-bind="props">
             <v-icon class="mr-2">mdi-database</v-icon>
-            SQL
+            Consultas Admin
           </v-btn>
         </template>
         <v-list>
+          <!-- Botón para encontrar el almacén más cercano -->
+          <v-list-item>
+            <v-btn text @click="isModalOpen4 = true">Buscar Almacén Más Cercano</v-btn>
+          </v-list-item>
+          <!-- Botón para ordenes enviadas en un radio de 10km de cierto almacen -->
           <v-list-item>
             <v-btn text @click="fetchVariablePriceProduct">Producto con mayor variabilidad</v-btn>
           </v-list-item>
@@ -62,6 +76,46 @@
         </v-list>
       </v-menu>
     </div> <!-- Cierre del div contenedor -->
+
+    <!-- Popup (Modal) para ingresar la ID del usuario -->
+    <v-dialog v-model="isModalOpen4" max-width="500">
+      <v-card>
+        <v-card-title class="text-h5">
+          Ingrese la ID de un Usuario
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+            label="ID de Usuario"
+            v-model="inputUserId"
+            outlined
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" text @click="fetchCloserStore">Buscar</v-btn>
+          <v-btn color="secondary" text @click="isModalOpen4 = false">Cancelar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Popup (Modal) para ingresar la ID del usuario -->
+    <v-dialog v-model="isModalOpen5" max-width="500">
+      <v-card>
+        <v-card-title class="text-h5">
+          Ingrese la ID de un Almacen
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+            label="ID de un Almacen"
+            v-model="inputStoreId"
+            outlined
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" text @click="fetch10KmStoreOrders">Buscar</v-btn>
+          <v-btn color="secondary" text @click="isModalOpen5 = false">Cancelar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <!-- Popup (Modal) para mostrar el producto -->
     <v-dialog v-model="isModalOpen1" max-width="500">
@@ -149,16 +203,19 @@ export default {
       isAdmin: false,
       isModalOpen1: false,
       isModalOpen2: false,
+      isModalOpen3: false,
+      isModalOpen4: false,
+      isStoreModalOpen: false,
+      inputUserId: "",
+      inputStoreId: "",
+      direccionStore: "",
+      store: null,
       precios: [], // Historial de precios
       priceHistoryHeaders: [
         { title: 'Fecha', value: 'fecha' },
         { title: 'Precio', value: 'precio' },
       ],
     };
-  },
-  mounted() {
-    const userName = localStorage.getItem("userName");
-    this.isAdmin = userName === "admin"; //Para mostrar cosas solo a admin
   },
   computed: {
     userName() {
@@ -168,6 +225,8 @@ export default {
   mounted() {
     this.actualizarEstadoAutenticacion(); // Actualiza el estado autenticado
     this.userName = localStorage.getItem("userName") || ""; 
+    const userName = localStorage.getItem("userName");
+    this.isAdmin = userName === "admin"; //Para mostrar cosas solo a admin
   },
   watch: {
     // Observa los cambios en la ruta para actualizar el estado de autenticación
@@ -207,6 +266,28 @@ export default {
       } catch (error) {
         console.error("Error fetching report:", error);
         alert("No se pudo obtener el reporte.");
+      }
+    },
+
+    async fetchCloserStore() {
+      if (!this.inputUserId) {
+        alert("Por favor, ingrese un ID de usuario.");
+        return;
+      }
+      const API_URL = "http://localhost:8090/api/almacen";
+      try {
+        const response = await axios.get(`${API_URL}/almacenMasCercano/${this.inputUserId}`);
+        console.log("Datos recibidos:", response.data);
+        alert("El almacén más cercano es: " + response.data);
+        this.store = response.data; 
+        this.isStoreModalOpen = true;
+        this.isModalOpen4 = false; // Cierra el modal
+        this.inputUserId = ""; // Limpia el campo de entrada
+        const responde_dir = await axios.get(`http://localhost:8090/api/direccion/${store.id_direccion}`);
+        this.direccionStore = response.data;
+      } catch (error) {
+        console.error("Error al buscar almacén más cercano:", error);
+        alert("No se pudo obtener el almacén más cercano.");
       }
     },
 
