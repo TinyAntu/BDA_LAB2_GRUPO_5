@@ -28,6 +28,7 @@ public class ClienteService {
     public void createCliente(Cliente cliente) {
         try {
             String encryptedPassword = generateEncodedPassword(cliente.getPassword());
+            cliente.setPassword(encryptedPassword);
             clienteRepository.createCliente(cliente);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear el Cliente", e);
