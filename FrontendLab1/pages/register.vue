@@ -164,6 +164,10 @@ export default {
 
       // Enviar Direccion al servidor
       this.registrarDireccion();
+      if (this.id_direccion === null) {
+        alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
+        return;
+      }
 
       // Enviar datos al servidor
       axios

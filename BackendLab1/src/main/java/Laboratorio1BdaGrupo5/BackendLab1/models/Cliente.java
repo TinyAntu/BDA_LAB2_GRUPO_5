@@ -17,6 +17,6 @@ public class Cliente {
     private String telefono;
     private String password; //Encriptada con BCrypt
     @Column(name = "id_direccion")
-    private String idDireccion;
+    private Integer id_direccion;
 
 }

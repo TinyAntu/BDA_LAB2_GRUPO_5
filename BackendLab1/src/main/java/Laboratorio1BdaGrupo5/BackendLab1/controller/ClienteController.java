@@ -27,7 +27,7 @@ public class ClienteController {
     @PostMapping("/register")
     public ResponseEntity<String> createCliente(@RequestBody Cliente cliente) {
         try {
-            clienteService.createCliente(cliente.getNombre(), cliente.getIdDireccion(), cliente.getEmail(), cliente.getTelefono(), cliente.getPassword());
+            clienteService.createCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("Cliente creado exitosamente");
         } catch (Exception e) {

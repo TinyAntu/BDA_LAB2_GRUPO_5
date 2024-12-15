@@ -25,10 +25,9 @@ public class ClienteService {
         }
     }
 
-    public void createCliente(String nombre, String direccion, String email, String telefono, String password) {
+    public void createCliente(Cliente cliente) {
         try {
-            String encryptedPassword = generateEncodedPassword(password);
-            Cliente cliente = new Cliente(null, nombre, direccion, email, telefono, encryptedPassword);
+            String encryptedPassword = generateEncodedPassword(cliente.getPassword());
             clienteRepository.createCliente(cliente);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear el Cliente", e);
@@ -43,6 +42,8 @@ public class ClienteService {
     public void updateCliente(Cliente cliente) {
         try {
             if (getClienteById(cliente.getId_cliente()) != null) {
+                String encryptedPassword = generateEncodedPassword(cliente.getPassword());
+                cliente.setPassword(encryptedPassword);
                 clienteRepository.updateCliente(cliente);
             } else {
                 throw new RuntimeException("El cliente no existe en la base de datos");

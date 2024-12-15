@@ -33,14 +33,14 @@ public class ClienteRepositoryImp implements ClienteRepository {
     public void createCliente(Cliente cliente) {
 
         String queryText = "INSERT INTO cliente ( nombre,  email, telefono, password, id_direccion) " +
-                "VALUES (:nombre, :direccion, :email, :telefono, :password, :id_direccion)";
+                "VALUES (:nombre, :email, :telefono, :password, :id_direccion)";
         try (Connection connection = sql2o.open()) {
             connection.createQuery(queryText)
                     .addParameter("nombre", cliente.getNombre())
                     .addParameter("email", cliente.getEmail())
                     .addParameter("telefono", cliente.getTelefono())
                     .addParameter("password", cliente.getPassword())
-                    .addParameter("id_direccion", cliente.getIdDireccion())
+                    .addParameter("id_direccion", cliente.getId_direccion())
                     .executeUpdate();
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
@@ -57,7 +57,7 @@ public class ClienteRepositoryImp implements ClienteRepository {
             System.out.println("Conexión exitosa a la base de datos");
             connection.createQuery(queryText)
                     .addParameter("nombre", cliente.getNombre())
-                    .addParameter("id_direccion", cliente.getIdDireccion())
+                    .addParameter("id_direccion", cliente.getId_direccion())
                     .addParameter("email", cliente.getEmail())
                     .addParameter("telefono", cliente.getTelefono())
                     .addParameter("id_cliente", cliente.getId_cliente())
