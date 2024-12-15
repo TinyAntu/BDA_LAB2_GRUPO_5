@@ -6,14 +6,14 @@
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div
         v-for="order in orders"
-        :key="order.idOrden"
+        :key="order.id_orden"
         class="border border-gray-300 rounded-lg shadow-md p-4"
       >
-        <h2 class="text-xl font-semibold mb-2">Orden #{{ order.idOrden }}</h2>
+        <h2 class="text-xl font-semibold mb-2">Orden #{{ order.id_orden }}</h2>
         <hr class="my-2 border-gray-400">
 
         <p class="text-xl font-semibold mb-2">Fecha de pedido:</p>
-        <h2 class="text-xl font-semibold mb-2">{{ formatDate(order.fechaOrden) }}</h2>
+        <h2 class="text-xl font-semibold mb-2">{{ formatDate(order.fecha_orden) }}</h2>
         <hr class="my-2 border-gray-400">
 
         <div class="flex flex-row">
@@ -31,7 +31,7 @@
         <hr class="my-2 border-gray-400">
 
         <!-- Botón para abrir el modal -->
-        <button @click="openModal(order.idOrden)" class="bg-blue-500 text-white px-4 py-2 rounded">
+        <button @click="openModal(order.id_orden)" class="bg-blue-500 text-white px-4 py-2 rounded">
           Detalle de la Orden
         </button>
       </div>
@@ -86,9 +86,9 @@ const isModalOpen = ref(false);
 const orderDetails = ref(null);
 
 // Abrir el modal
-const openModal = async (idOrden) => {
+const openModal = async (id_orden) => {
   try {
-    const response = await axios.get(`${API_URL_2}/getByOrderId/${idOrden}`);
+    const response = await axios.get(`${API_URL_2}/getByOrderId/${id_orden}`);
 
     const orderDetailsWithNames = await Promise.all(
       response.data.map(async (orderDetail) => {

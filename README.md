@@ -1,4 +1,4 @@
-# BDA_LAB1
+# BDA_LAB2
 
 Prerequisitos de instalacion:
 
@@ -28,17 +28,17 @@ Una vez descargado/clonado el repositorio siga los siguientes pasos:
 
 5.-Ahora modifique el aplicaction properties:
 
-    -DB_URL=jdbc:postgresql://localhost:el puerto con cual instalo postgres/lab1bda
+    -DB_URL=jdbc:postgresql://localhost:el puerto con cual instalo postgres/lab2bda
 
     -USER=El usuario con el que instalo postgres
 
     -PASSWORD=La contraseña con la que instalo postgres
 
-6.- Ahora corra el archivo BackendLab1Application presionando el boton de play
+6.- Ahora corra el archivo BackendLab2Application presionando el boton de play
 
 7.- Luego dentro de Visual Studio Code abra "FrontEndLab2"
 
-8.- Acceda a este link con el correo usach https://drive.google.com/drive/folders/1A9UYUIQ9KQy_Yf2CQyWUI7lB-p42thyZ?usp=sharing descargue el archivo .env y peguelo en "FrontEndLab1"  y renombrelo a ".env"
+8.- Acceda a este link con el correo usach https://drive.google.com/drive/folders/1A9UYUIQ9KQy_Yf2CQyWUI7lB-p42thyZ?usp=sharing descargue el archivo .env y peguelo en "FrontEndLab2"  y renombrelo a ".env"
 
 9.- Abra un terminal y ejecute "npm install"
 

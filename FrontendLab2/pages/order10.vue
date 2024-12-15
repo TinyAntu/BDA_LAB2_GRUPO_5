@@ -31,11 +31,11 @@
           :key="order.idOrden"
           class="border border-gray-300 rounded-lg shadow-md p-4"
         >
-          <h2 class="text-xl font-semibold mb-2">Orden #{{ order.idOrden }}</h2>
+          <h2 class="text-xl font-semibold mb-2">Orden #{{ order.id_orden }}</h2>
           <hr class="my-2 border-gray-400">
   
           <p class="text-xl font-semibold mb-2">Fecha de pedido:</p>
-          <h2 class="text-xl font-semibold mb-2">{{ formatDate(order.fechaOrden) }}</h2>
+          <h2 class="text-xl font-semibold mb-2">{{ formatDate(order.fecha_orden) }}</h2>
           <hr class="my-2 border-gray-400">
   
           <div class="flex flex-row">
@@ -52,7 +52,7 @@
           </div>
           <hr class="my-2 border-gray-400">
           <!-- Botón para abrir el modal -->
-          <button @click="openModal(order.idOrden)" class="bg-blue-500 text-white px-4 py-2 rounded">
+          <button @click="openModal(order.id_orden)" class="bg-blue-500 text-white px-4 py-2 rounded">
             Detalle de la Orden
           </button>
         </div>
@@ -164,19 +164,21 @@
   };
   
   // Función para obtener las órdenes filtradas por `idAlmacen`
-  const fetchOrdersByStore = () => {
+  const fetchOrdersByStore = async () => {
     if (searchAlmacenId.value) {
-
-      axios.get(`${API_URL}/filtrarOrdenesPorAlmacen/${searchAlmacenId.value}`)
-        .then((response) => {
-          orders.value = response.data.orders;
-          totalPages.value = response.data.totalPages;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      try{
+        const response = await axios.get(`${API_URL}/filtrarOrdenesPorAlmacen/${searchAlmacenId.value}`);
+        orders.value = response.data;
+        console.log('Respuesta del servidor:', response.data);
+        totalPages.value = Math.ceil(response.data.length / 10); 
+      } catch (error) {
+        console.error('Error al obtener las órdenes:', error);
+      }
+      
     }
   };
+  
+
 </script>
   
   
