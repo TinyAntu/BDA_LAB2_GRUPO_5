@@ -282,11 +282,12 @@ BEGIN
         SELECT cliente.id_direccion, orden.id_orden, orden.fecha_orden, orden.estado, orden.id_cliente, orden.total
         FROM orden
         JOIN cliente ON orden.id_cliente = cliente.id_cliente
+        WHERE orden.estado = 'enviada'
     )
     SELECT p.id_orden, p.fecha_orden, p.estado, p.id_cliente, p.total
     FROM pedidos p
     JOIN direccion d ON p.id_direccion = d.id_direccion
     CROSS JOIN direccion_tienda t
-    WHERE ST_Distance(d.geom, t.geom) > 100000; -- Distancia en metros
+    WHERE ST_Distance(d.geom::geography, t.geom::geography) > 100000; -- Distancia en metros
 END;
 $$ LANGUAGE plpgsql;
