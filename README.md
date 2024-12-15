@@ -10,6 +10,8 @@ Prerequisitos de instalacion:
 
 -Intellij version mas actual
 
+-Postgis version mas actual
+
 -Node js 20.16.0
 
 Intrucciones de instalacion:
@@ -22,7 +24,7 @@ Una vez descargado/clonado el repositorio siga los siguientes pasos:
 
 3.-Ahora en la misma consola ejecute el siguiente comando para hacer el rellenado de datos:"psql -U El usuario con el que instalo postgres -h localhost -d lab2bda -f dump.sql"
 
-4.-Abra intellij idea y abra la carpeta ""BackendLab1"
+4.-Abra intellij idea y abra la carpeta ""BackendLab2"
 
 5.-Ahora modifique el aplicaction properties:
 
@@ -34,7 +36,7 @@ Una vez descargado/clonado el repositorio siga los siguientes pasos:
 
 6.- Ahora corra el archivo BackendLab1Application presionando el boton de play
 
-7.- Luego dentro de Visual Studio Code abra "FrontEndLab1"
+7.- Luego dentro de Visual Studio Code abra "FrontEndLab2"
 
 8.- Acceda a este link con el correo usach https://drive.google.com/drive/folders/1A9UYUIQ9KQy_Yf2CQyWUI7lB-p42thyZ?usp=sharing descargue el archivo .env y peguelo en "FrontEndLab1"  y renombrelo a ".env"
 
