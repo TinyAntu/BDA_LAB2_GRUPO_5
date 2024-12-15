@@ -68,7 +68,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
 
     @Override
     public Orden createOrden(Orden orden) {
-        clienteRepository.registerSessionUserAndInsertOperation(orden.getIdCliente(), () -> {
+        clienteRepository.registerSessionUserAndInsertOperation(orden.getId_cliente(), () -> {
             String queryText = "INSERT INTO orden (fecha_orden, estado, id_cliente, total) " +
                     "VALUES (:fecha_orden, :estado, :id_cliente, :total)";
             try (Connection connection = sql2o.open()) {
@@ -79,9 +79,9 @@ public class OrdenRepositoryImp implements OrdenRepository {
 
                 // Insertar la orden
                 connection.createQuery(queryText)
-                        .addParameter("fecha_orden", orden.getFechaOrden())
+                        .addParameter("fecha_orden", orden.getFecha_orden())
                         .addParameter("estado", orden.getEstado())
-                        .addParameter("id_cliente", orden.getIdCliente())
+                        .addParameter("id_cliente", orden.getId_cliente())
                         .addParameter("total", orden.getTotal())
                         .executeUpdate();
 
@@ -91,7 +91,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
                         .executeScalar(Integer.class);
 
                 // Asignar el id generado a la orden
-                orden.setIdOrden(idGenerado);
+                orden.setId_orden(idGenerado);
 
                 return orden; // Devuelve la orden creada
             } catch (Exception e) {
@@ -112,11 +112,11 @@ public class OrdenRepositoryImp implements OrdenRepository {
         try (Connection connection = sql2o.open()) {
             System.out.println("Conexión exitosa a la base de datos");
             connection.createQuery(queryText)
-                    .addParameter("fecha_orden", orden.getFechaOrden())
+                    .addParameter("fecha_orden", orden.getFecha_orden())
                     .addParameter("estado", orden.getEstado())
-                    .addParameter("id_cliente", orden.getIdCliente())
+                    .addParameter("id_cliente", orden.getId_cliente())
                     .addParameter("total", orden.getTotal())
-                    .addParameter("idOrden", orden.getIdOrden())
+                    .addParameter("idOrden", orden.getId_orden())
                     .executeUpdate();
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
@@ -139,26 +139,19 @@ public class OrdenRepositoryImp implements OrdenRepository {
     }
 
     @Override
-    public List<Orden> filtrarOrdenesEnviadasDentro10km(int idAlmacen){
-        String query = """
-                SELECT o.*
-                FROM orden o
-                JOIN cliente c ON o.id_cliente = c.id_cliente
-                JOIN direccion d_cliente ON c.id_direccion = d_cliente.id_direccion
-                JOIN almacen a ON a.id_almacen = :idAlmacen  -- Cambia 1 por el ID del almacén que quieras probar
-                JOIN direccion d_almacen ON a.id_direccion = d_almacen.id_direccion
-                WHERE
-                    ST_DWithin(
-                        d_cliente.geom::geography,   -- Transformación a SRID métrico
-                        d_almacen.geom::geography,  -- Transformación a SRID métrico
-                        10000                                -- Radio en metros (10 km)
-                    )
-                    AND o.estado = 'enviada';  -- Filtra solo órdenes con estado 'enviada'         
-                """;
+    public List<Orden> filtrarOrdenesEnviadasDentro10km(int id_almacen){
+        String query = "SELECT o.* " +
+                "FROM orden o " +
+                "JOIN cliente c ON o.id_cliente = c.id_cliente " +
+                "JOIN direccion d_cliente ON c.id_direccion = d_cliente.id_direccion " +
+                "JOIN almacen a ON a.id_almacen = :id_almacen " +
+                "JOIN direccion d_almacen ON a.id_direccion = d_almacen.id_direccion " +
+                "WHERE ST_DWithin(d_cliente.geom::geography, d_almacen.geom::geography, 10000) " +
+                "AND o.estado = 'enviada'";
         try {
             return sql2o.open()
                     .createQuery(query)
-                    .addParameter("idAlmacen", idAlmacen)
+                    .addParameter("id_almacen", id_almacen)
                     .executeAndFetch(Orden.class);
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());

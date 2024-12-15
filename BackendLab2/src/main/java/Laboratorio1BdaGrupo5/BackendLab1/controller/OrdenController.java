@@ -71,7 +71,7 @@ public class OrdenController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateOrden(@PathVariable Integer id, @RequestBody Orden orden) {
         try {
-            orden.setIdOrden(id);
+            orden.setId_orden(id);
             ordenService.updateOrden(orden);
             return ResponseEntity.ok("Orden actualizada exitosamente");
         } catch (Exception e) {

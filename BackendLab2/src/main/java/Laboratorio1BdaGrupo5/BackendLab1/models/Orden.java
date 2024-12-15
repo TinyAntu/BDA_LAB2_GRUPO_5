@@ -13,15 +13,15 @@ import java.util.Date;
 public class Orden {
 
     @Column(name = "id_orden")
-    private Integer idOrden;
+    private Integer id_orden;
 
     @Column(name = "fecha_orden")
-    private Date fechaOrden;
+    private Date fecha_orden;
 
     private String estado;
 
     @Column(name = "id_cliente")
-    private Integer idCliente;
+    private Integer id_cliente;
 
     private Float total;
 }

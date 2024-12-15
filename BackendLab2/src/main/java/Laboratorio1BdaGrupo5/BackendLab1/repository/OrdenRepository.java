@@ -12,7 +12,7 @@ public interface OrdenRepository {
     Orden createOrden(Orden orden);
     void updateOrden(Orden orden);
     void deleteOrden(Integer idOrden);
-    List<Orden> filtrarOrdenesEnviadasDentro10km(int idAlmacen);
+    List<Orden> filtrarOrdenesEnviadasDentro10km(int id_almacen);
 
     List<Orden> getFueraDe100km(String nombreAlmacenPrincipal);
 }

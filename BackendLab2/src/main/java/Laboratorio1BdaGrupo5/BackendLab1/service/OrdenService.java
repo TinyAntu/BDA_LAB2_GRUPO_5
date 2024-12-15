@@ -59,7 +59,7 @@ public class OrdenService {
 
     public void updateOrden(Orden orden) {
         try {
-            getOrdenById(orden.getIdOrden());
+            getOrdenById(orden.getId_orden());
             ordenRepository.updateOrden(orden);
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la orden", e);
@@ -86,8 +86,8 @@ public class OrdenService {
             orden.setTotal((float) total);
             orden = ordenRepository.createOrden(orden);
             for (DetalleOrden detalle : detalles) {
-                detalle.setIdOrden(orden.getIdOrden());
-                detalleOrdenService.createDetalleOrden(detalle, orden.getIdCliente());
+                detalle.setIdOrden(orden.getId_orden());
+                detalleOrdenService.createDetalleOrden(detalle, orden.getId_cliente());
             }
         } catch (Exception e){
             throw new RuntimeException("Error al pagar la orden", e);
