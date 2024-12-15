@@ -226,7 +226,7 @@ export default {
     this.actualizarEstadoAutenticacion(); // Actualiza el estado autenticado
     this.userName = localStorage.getItem("userName") || ""; 
     const userName = localStorage.getItem("userName");
-    this.isAdmin = userName === "admin"; //Para mostrar cosas solo a admin
+    this.isAdmin = userName === "Admin"; //Para mostrar cosas solo a admin
   },
   watch: {
     // Observa los cambios en la ruta para actualizar el estado de autenticación
@@ -278,13 +278,12 @@ export default {
       try {
         const response = await axios.get(`${API_URL}/almacenMasCercano/${this.inputUserId}`);
         console.log("Datos recibidos:", response.data);
-        alert("El almacén más cercano es: " + response.data);
-        this.store = response.data; 
+        alert("El almacén más cercano es: " + response.data.nombre);
         this.isStoreModalOpen = true;
         this.isModalOpen4 = false; // Cierra el modal
         this.inputUserId = ""; // Limpia el campo de entrada
-        const responde_dir = await axios.get(`http://localhost:8090/api/direccion/${store.id_direccion}`);
-        this.direccionStore = response.data;
+        const response_dir = await axios.get(`http://localhost:8090/api/direccion/${response.data.id_direccion}`);
+        this.direccionStore = response_dir.data;
       } catch (error) {
         console.error("Error al buscar almacén más cercano:", error);
         alert("No se pudo obtener el almacén más cercano.");
