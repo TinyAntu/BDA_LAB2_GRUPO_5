@@ -124,4 +124,4 @@ INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
 ('Almacén La Serena', 17, 1500, 'activo'),
 ('Almacén Chillán', 18, 1000, 'inactivo'),
 ('Almacén Villa Alemana', 19, 800, 'inactivo'),
-('Almacén Costanera Center', 20, 1200, 'activo');
+('Almacén Principal', 20, 1200, 'activo');
