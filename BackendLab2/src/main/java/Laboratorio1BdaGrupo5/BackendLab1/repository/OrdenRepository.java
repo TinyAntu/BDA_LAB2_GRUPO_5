@@ -13,4 +13,6 @@ public interface OrdenRepository {
     void updateOrden(Orden orden);
     void deleteOrden(Integer idOrden);
     List<Orden> filtrarOrdenesEnviadasDentro10km(int idAlmacen);
+
+    List<Orden> getFueraDe100km(String nombreAlmacenPrincipal);
 }

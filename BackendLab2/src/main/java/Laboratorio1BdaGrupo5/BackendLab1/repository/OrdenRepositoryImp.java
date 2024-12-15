@@ -165,4 +165,18 @@ public class OrdenRepositoryImp implements OrdenRepository {
             throw new RuntimeException("Error al filtrar órdenes", e);
         }
     }
+    @Override
+    public List<Orden> getFueraDe100km(String nombreAlmacenPrincipal){
+        String query = "SELECT id_orden as idOrden, fecha_orden as fechaOrden, estado as estado, id_cliente as idCliente " +
+                "FROM pedidos_fuera_radio_100km(:nombreAlmacenPrincipal)";
+        try {
+            return sql2o.open()
+                    .createQuery(query)
+                    .addParameter("nombreAlmacenPrincipal", nombreAlmacenPrincipal)
+                    .executeAndFetch(Orden.class);
+        } catch (Exception e) {
+            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error al obtener órdenes", e);
+        }
+    }
 }

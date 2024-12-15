@@ -108,4 +108,17 @@ public class OrdenService {
             throw new RuntimeException("Error al obtener las ordenes", e);
         }
     }
+
+    public List<Orden> getFueraDe100km(String nombreAlmacenPrincipal) {
+        try {
+            List<Orden> ordenes = ordenRepository.getFueraDe100km(nombreAlmacenPrincipal);
+            if (ordenes != null){
+                return ordenes;
+            } else {
+                throw new RuntimeException("No se encontraron ordenes");
+            }
+        } catch (Exception e){
+            throw new RuntimeException("Error al obtener las ordenes", e);
+        }
+    }
 }

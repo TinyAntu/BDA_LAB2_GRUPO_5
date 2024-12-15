@@ -112,4 +112,13 @@ public class OrdenController {
                     .body(null);
         }
     }
+    @GetMapping("/fuerade100km/{nombreAlmacenPrincipal}")
+    public ResponseEntity<List<Orden>> getFueraDe100km(@PathVariable String nombreAlmacenPrincipal){
+        try{
+            List<Orden> ordenes = ordenService.getFueraDe100km(nombreAlmacenPrincipal);
+            return ResponseEntity.ok(ordenes);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }
