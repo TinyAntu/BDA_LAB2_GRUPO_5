@@ -38,13 +38,20 @@
         </v-list>
       </v-menu>
 
-      <v-menu v-if="isAdmin">
-        <v-list-item>
-          <v-btn text href="/order10">Ordenes10km</v-btn>
-        </v-list-item>
-        <v-list-item>
-          <v-btn text href="/order100">Ordenes100kmMain</v-btn>
-        </v-list-item> 
+      <v-menu v-if="isAdmin" offset-y>
+        <template v-slot:activator="{ props }">
+          <v-btn text v-bind="props">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-btn text href="/order10">Ordenes10km</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn text href="/order100">Ordenes100kmMain</v-btn>
+          </v-list-item>
+        </v-list>
       </v-menu>
 
       <!-- Botón del carrito de compras -->
