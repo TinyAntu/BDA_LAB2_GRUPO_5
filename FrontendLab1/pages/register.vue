@@ -156,24 +156,20 @@ export default {
       return Object.keys(this.errors).length === 0;
     },
 
-    registrarUsuario() {
+    async registrarUsuario() {
       if (!this.validarCampos()) {
         // Si hay errores, los mostramos y no hacemos el post
         return;
       }
 
       // Enviar Direccion al servidor
-      this.registrarDireccion();
-      if (this.id_direccion === null) {
-        alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
-        return;
-      }
+      await this.registrarDireccion();
 
       // Enviar datos al servidor
       axios
         .post("http://localhost:8090/api/cliente/register", {
           nombre: this.nombre,
-          idDireccion: this.id_direccion,
+          id_direccion: this.id_direccion,
           email: this.email,
           telefono: this.telefono,
           password: this.password,
@@ -189,7 +185,7 @@ export default {
         });
     },
 
-    registrarDireccion() {
+    async registrarDireccion() {
       if (this.latitude === null || this.longitude === null) {
         return;
       }
@@ -201,6 +197,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.id_direccion = response.data.id_direccion;
+          return response.data.id_direccion;
         })
         .catch((error) => {
           alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
