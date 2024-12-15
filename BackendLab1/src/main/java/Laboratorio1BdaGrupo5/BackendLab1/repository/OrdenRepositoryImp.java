@@ -149,8 +149,8 @@ public class OrdenRepositoryImp implements OrdenRepository {
                 JOIN direccion d_almacen ON a.id_direccion = d_almacen.id_direccion
                 WHERE
                     ST_DWithin(
-                        ST_Transform(d_cliente.geom, 3857),   -- Transformación a SRID métrico
-                        ST_Transform(d_almacen.geom, 3857),  -- Transformación a SRID métrico
+                        d_cliente.geom::geography,   -- Transformación a SRID métrico
+                        d_almacen.geom::geography,  -- Transformación a SRID métrico
                         10000                                -- Radio en metros (10 km)
                     )
                     AND o.estado = 'enviada';  -- Filtra solo órdenes con estado 'enviada'         
