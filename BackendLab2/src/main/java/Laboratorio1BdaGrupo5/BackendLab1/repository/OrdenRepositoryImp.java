@@ -160,7 +160,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
     }
     @Override
     public List<Orden> getFueraDe100km(String nombreAlmacenPrincipal){
-        String query = "SELECT id_orden as idOrden, fecha_orden as fechaOrden, estado as estado, id_cliente as idCliente, total as total " +
+        String query = "SELECT id_orden as id_orden, fecha_orden as fecha_orden, estado as estado, id_cliente as id_cliente, total as total " +
                 "FROM pedidos_fuera_radio_100km(:nombreAlmacenPrincipal)";
         try {
             return sql2o.open()
