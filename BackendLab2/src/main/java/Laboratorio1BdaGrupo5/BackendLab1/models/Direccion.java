@@ -11,10 +11,13 @@ import org.locationtech.jts.geom.Geometry;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Direccion {
+
     private Integer id_direccion;
 
     @JsonIgnore
     private Geometry geom;
+
+    private String formatted_address;
 
     @JsonProperty("geom")
     public Object getGeomAsGeoJSON() {

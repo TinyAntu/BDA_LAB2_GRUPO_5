@@ -8,9 +8,11 @@ public interface DireccionRepository {
 
     Direccion getDireccionById(Integer id);
 
-    Direccion createDireccion(Double latitud, Double longitud);
+    Direccion createDireccion(Double latitud, Double longitud, String formatted_address);
 
-    void updateDireccion(Integer id, Double latitud, Double longitud);
+    void updateDireccion(Integer id, Double latitud, Double longitud, String formatted_address);
 
     void deleteDireccion(Integer id);
+
+    String findFormattedAddressByClienteId(Integer id_cliente);
 }

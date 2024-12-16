@@ -17,7 +17,7 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Dirección:</v-list-item-title>
-                    <v-list-item-subtitle>{{ cliente.direccion }}</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{ formattedAddress }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
   
@@ -44,12 +44,13 @@
   
   <script>
   import axios from 'axios';
-import { id } from 'vuetify/locale';
+  import { id } from 'vuetify/locale';
   
   export default {
     data() {
       return {
         cliente: null, // Guardará los datos del cliente
+        formattedAddress: null,
       };
     },
     async mounted() {
@@ -63,6 +64,8 @@ import { id } from 'vuetify/locale';
           try {
             const response = await axios.get(`http://localhost:8090/api/cliente/${idCliente}`); // Realizar la solicitud GET
             this.cliente = response.data;  // Guardar los datos del cliente
+            const formattedAddress = await axios.get(`http://localhost:8090/api/direccion/formattedAddress/${idCliente}`);
+            this.formattedAddress = formattedAddress.data;
           } catch (error) {
             console.error("Error al obtener los datos del cliente", error);
             this.$router.push('/login');  // Si hay error, redirigir al login

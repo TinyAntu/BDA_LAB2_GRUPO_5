@@ -23,18 +23,18 @@ public class DireccionService {
         }
     }
 
-    public Direccion createDireccion(Double latitud, Double longitud) {
+    public Direccion createDireccion(Double latitud, Double longitud, String formatted_address) {
         try {
-            System.out.println("latitud: " + latitud + " longitud: " + longitud);
-            return direccionRepository.createDireccion(latitud, longitud);
+            System.out.println("latitud: " + latitud + " longitud: " + longitud+ " formatted_address: " + formatted_address);
+            return direccionRepository.createDireccion(latitud, longitud, formatted_address);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear la direccion", e);
         }
     }
 
-    public void updateDireccion(Integer id, Double latitud, Double longitud) {
+    public void updateDireccion(Integer id, Double latitud, Double longitud, String formatted_address) {
         try {
-            direccionRepository.updateDireccion(id, latitud, longitud);
+            direccionRepository.updateDireccion(id, latitud, longitud, formatted_address);
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la direccion", e);
         }
@@ -49,6 +49,19 @@ public class DireccionService {
             }
         } catch (Exception e) {
             throw new RuntimeException("Error al eliminar la direccion.");
+        }
+    }
+
+    public String getFormattedAddressByIdCliente(Integer idCliente) {
+        try {
+            String direccion = direccionRepository.findFormattedAddressByClienteId(idCliente);
+            if (direccion != null) {
+                return direccion;
+            } else {
+                throw new RuntimeException("Direccion no encontrada");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener la direccion", e);
         }
     }
 }

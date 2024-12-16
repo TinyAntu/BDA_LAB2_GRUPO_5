@@ -24,7 +24,8 @@ CREATE EXTENSION postgis;
 
 CREATE TABLE IF NOT EXISTS "direccion" (
     "id_direccion" SERIAL PRIMARY KEY,
-    "geom" GEOMETRY(Point, 4326) NOT NULL
+    "geom" GEOMETRY(Point, 4326) NOT NULL,
+    "formatted_address" VARCHAR(500) NOT NULL
 );
 
 -------------------------------------------------------

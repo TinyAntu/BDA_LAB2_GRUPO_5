@@ -21,9 +21,9 @@ INSERT INTO direccion (geom, formatted_address) VALUES
 (ST_SetSRID(ST_MakePoint(-71.33947, -29.95332), 4326), 'Coquimbo'), -- Coquimbo
 (ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326), 'La Serena'), -- La Serena
 (ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326), 'Chillán'), -- Chillán
-(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326), 'Villa Alemana') -- Villa Alemana
+(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326), 'Villa Alemana'), -- Villa Alemana
 (ST_SetSRID(ST_MakePoint(-70.6065351, -33.41761942828365), 4326), 'Av. Andrés Bello 2425, 7510689 Providencia, Región Metropolitana'), -- Costanera Center
-(ST_SetSRID(ST_MakePoint(-70.68011784232786, -33.45027786847647), 4326), "Av. Alameda Libertador Bernardo O'Higgins, 9170022 Estación Central, Región Metropolitana"); -- USACH
+(ST_SetSRID(ST_MakePoint(-70.68011784232786, -33.45027786847647), 4326), 'Av. Alameda Libertador Bernardo O''Higgins, 9170022 Estación Central, Región Metropolitana'); -- USACH
 
 -- Insertar categorías
 INSERT INTO categoria (nombre) VALUES 

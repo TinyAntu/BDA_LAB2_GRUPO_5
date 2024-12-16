@@ -40,7 +40,8 @@ public class DireccionRepositoryImp implements DireccionRepository{
             // Return the Direccion object
             return new Direccion(
                     (Integer) row.get("id_direccion"),
-                    geom
+                    geom,
+                    (String) row.get("formatted_address")
             );
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener la dirección con ID: " + id, e);
@@ -48,15 +49,16 @@ public class DireccionRepositoryImp implements DireccionRepository{
     }
 
     @Override
-    public Direccion createDireccion(Double latitud, Double longitud) {
-        String queryText = "INSERT INTO direccion(geom) " +
-                "VALUES (ST_SetSRID(ST_Point(:longitud, :latitud), 4326))";
+    public Direccion createDireccion(Double latitud, Double longitud, String formatted_address) {
+        String queryText = "INSERT INTO direccion(geom, formatted_address) " +
+                "VALUES (ST_SetSRID(ST_Point(:longitud, :latitud), 4326), :formatted_address)";
 
         try (Connection connection = sql2o.beginTransaction()) {
             // Insert into the database and fetch the generated ID
             Integer id = connection.createQuery(queryText)
                     .addParameter("latitud", latitud)
                     .addParameter("longitud", longitud)
+                    .addParameter("formatted_address", formatted_address)
                     .executeUpdate()
                     .getKey(Integer.class);
 
@@ -73,16 +75,17 @@ public class DireccionRepositoryImp implements DireccionRepository{
             connection.commit();
 
             // Return the created Direccion object
-            return new Direccion(id, geom);
+            return new Direccion(id, geom, formatted_address);
         } catch (Exception e) {
             throw new RuntimeException("No se pudo registrar la dirección", e);
         }
     }
 
     @Override
-    public void updateDireccion(Integer id, Double latitud, Double longitud) {
+    public void updateDireccion(Integer id, Double latitud, Double longitud, String formatted_address) {
         String queryText = "UPDATE direccion " +
                 "SET geom = ST_SetSRID(ST_Point(:longitud, :latitud), 4326) " +
+                "SET formatted_address = :formatted_address " +
                 "WHERE id_direccion = :id_direccion";
         try (Connection connection = sql2o.beginTransaction()) {
             connection.createQuery(queryText)
@@ -105,6 +108,23 @@ public class DireccionRepositoryImp implements DireccionRepository{
                     .executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException("Error al eliminar la direccion", e);
+        }
+    }
+
+    public String findFormattedAddressByClienteId(Integer id_cliente) {
+        String sql = """
+            SELECT d.formatted_address
+            FROM cliente c
+            JOIN direccion d ON c.id_direccion = d.id_direccion
+            WHERE c.id_cliente = :id_cliente;
+        """;
+
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery(sql)
+                    .addParameter("id_cliente", id_cliente)
+                    .executeAndFetchFirst(String.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener la dirección formateada", e);
         }
     }
 }

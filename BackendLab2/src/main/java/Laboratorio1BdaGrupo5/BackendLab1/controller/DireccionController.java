@@ -24,12 +24,24 @@ public class DireccionController {
         }
     }
 
+    @GetMapping("/formattedAddress/{id_cliente}")
+    public ResponseEntity<String> getFormattedAddressByIdCliente(@PathVariable Integer id_cliente) {
+        try {
+            String formatted_address = direccionService.getFormattedAddressByIdCliente(id_cliente);
+            return ResponseEntity.ok(formatted_address);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping("/")
     public ResponseEntity<Direccion> createDireccion(
             @RequestParam Double latitud,
-            @RequestParam Double longitud) {
+            @RequestParam Double longitud,
+            @RequestParam String formattedAddress ) {
         try {
-            Direccion direccion = direccionService.createDireccion(latitud, longitud);
+            Direccion direccion = direccionService.createDireccion(latitud, longitud, formattedAddress );
+            System.out.println(direccion);
             return ResponseEntity.ok(direccion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -40,9 +52,10 @@ public class DireccionController {
     public ResponseEntity<String> updateDireccion(
             @RequestParam Integer id,
             @RequestParam Double latitud,
-            @RequestParam Double longitud) {
+            @RequestParam Double longitud,
+            @RequestParam String formatted_address) {
         try {
-            direccionService.updateDireccion(id, latitud, longitud);
+            direccionService.updateDireccion(id, latitud, longitud, formatted_address);
             return ResponseEntity.ok("Direccion actualizada exitosamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

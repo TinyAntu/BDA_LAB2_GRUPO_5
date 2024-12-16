@@ -4,79 +4,38 @@
     <v-form @submit.prevent="registrarUsuario" class="form">
       <v-row dense>
         <v-col cols="6">
-          <v-text-field
-            v-model="nombre"
-            label="Nombre"
-            outlined
-            required
-            placeholder="Nombre"
-            :error="!!errors.nombre"
-          ></v-text-field>
+          <v-text-field v-model="nombre" label="Nombre" outlined required placeholder="Nombre"
+            :error="!!errors.nombre"></v-text-field>
           <span v-if="errors.nombre" class="error">{{ errors.nombre }}</span>
         </v-col>
 
         <v-col cols="6">
-          <v-text-field
-            id="address-input"
-            v-model="direccion"
-            label="Dirección"
-            outlined
-            required
-            placeholder="Dirección"
-            :error="!!errors.direccion"
-          ></v-text-field>
+          <v-text-field id="address-input" v-model="direccion" label="Dirección" outlined required
+            placeholder="Dirección" :error="!!errors.direccion"></v-text-field>
           <span v-if="errors.direccion" class="error">{{ errors.direccion }}</span>
         </v-col>
 
         <v-col cols="6">
-          <v-text-field
-            v-model="email"
-            label="Email"
-            outlined
-            required
-            type="email"
-            placeholder="Email"
-            :error="!!errors.email"
-          ></v-text-field>
+          <v-text-field v-model="email" label="Email" outlined required type="email" placeholder="Email"
+            :error="!!errors.email"></v-text-field>
           <span v-if="errors.email" class="error">{{ errors.email }}</span>
         </v-col>
 
         <v-col cols="6">
-          <v-text-field
-            v-model="telefono"
-            label="Teléfono"
-            outlined
-            required
-            type="tel"
-            placeholder="Teléfono"
-            :error="!!errors.telefono"
-          ></v-text-field>
+          <v-text-field v-model="telefono" label="Teléfono" outlined required type="tel" placeholder="Teléfono"
+            :error="!!errors.telefono"></v-text-field>
           <span v-if="errors.telefono" class="error">{{ errors.telefono }}</span>
         </v-col>
 
         <v-col cols="6">
-          <v-text-field
-            v-model="password"
-            label="Contraseña"
-            outlined
-            required
-            type="password"
-            placeholder="Contraseña"
-            :error="!!errors.password"
-          ></v-text-field>
+          <v-text-field v-model="password" label="Contraseña" outlined required type="password" placeholder="Contraseña"
+            :error="!!errors.password"></v-text-field>
           <span v-if="errors.password" class="error">{{ errors.password }}</span>
         </v-col>
 
         <v-col cols="6">
-          <v-text-field
-            v-model="passwordRepeat"
-            label="Repite la contraseña"
-            outlined
-            required
-            type="password"
-            placeholder="Contraseña"
-            :error="!!errors.passwordRepeat"
-          ></v-text-field>
+          <v-text-field v-model="passwordRepeat" label="Repite la contraseña" outlined required type="password"
+            placeholder="Contraseña" :error="!!errors.passwordRepeat"></v-text-field>
           <span v-if="errors.passwordRepeat" class="error">{{ errors.passwordRepeat }}</span>
         </v-col>
       </v-row>
@@ -104,9 +63,9 @@ export default {
     password: "",
     passwordRepeat: "",
     direccion: "",
+    id_direccion: null,
     latitude: null,
     longitude: null,
-    id_direccion: null,
     errors: {}, // Para almacenar errores
   }),
   methods: {
@@ -162,47 +121,52 @@ export default {
         return;
       }
 
-      // Enviar Direccion al servidor
-      await this.registrarDireccion();
+      try {
+        // Esperar a registrar la dirección y obtener el id
+        const direccionId = await this.registrarDireccion();
+        if (!direccionId) {
+          alert("No se pudo obtener la dirección. Por favor, inténtelo nuevamente.");
+          return;
+        }
 
-      // Enviar datos al servidor
-      axios
-        .post("http://localhost:8090/api/cliente/register", {
+        // Enviar datos al servidor para registrar el usuario
+        await axios.post("http://localhost:8090/api/cliente/register", {
           nombre: this.nombre,
-          id_direccion: this.id_direccion,
+          id_direccion: direccionId, // Usar el ID obtenido
           email: this.email,
           telefono: this.telefono,
           password: this.password,
-        })
-        .then((response) => {
-          console.log(response);
-          console.log("id_direccion: ", this.id_direccion);
-          this.$router.push("/login");
-        })
-        .catch((error) => {
-          alert("Error al registrar el usuario. Por favor, inténtelo de nuevo.");
-          console.log(error);
         });
+
+        console.log("Usuario registrado con éxito.");
+        this.$router.push("/login");
+
+      } catch (error) {
+        console.error("Error al registrar el usuario:", error);
+        alert("Error al registrar el usuario. Por favor, inténtelo de nuevo.");
+      }
     },
 
     async registrarDireccion() {
       if (this.latitude === null || this.longitude === null) {
-        return;
+        console.error("Latitud y longitud no están definidas.");
+        return null;
       }
-      
-      axios
-        .post(
-          `http://localhost:8090/api/direccion/?latitud=${this.latitude}&longitud=${this.longitude}`
-        )
-        .then((response) => {
-          console.log(response);
-          this.id_direccion = response.data.id_direccion;
-          return response.data.id_direccion;
-        })
-        .catch((error) => {
-          alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
-          console.log(error);
-        });
+
+      try {
+        const response = await axios.post(
+          `http://localhost:8090/api/direccion/?latitud=${this.latitude}&longitud=${this.longitude}&formattedAddress=${this.direccion}`
+        );
+
+        console.log("Respuesta de dirección:", response);
+        this.id_direccion = response.data.id_direccion;
+        return this.id_direccion;
+
+      } catch (error) {
+        console.error("Error al registrar la dirección:", error);
+        alert("Error al registrar la dirección. Por favor, inténtelo de nuevo.");
+        return null;
+      }
     },
 
     initializeAutocomplete() {
@@ -296,5 +260,4 @@ export default {
   font-size: 0.9rem;
   margin-top: 0.2rem;
 }
-
 </style>

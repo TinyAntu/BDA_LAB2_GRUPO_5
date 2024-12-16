@@ -48,7 +48,6 @@ public class ClienteRepositoryImp implements ClienteRepository {
         }
     }
 
-    //Es responsabilidad de Direccion devolver el ID de la nueva direccion
     @Override
     public void updateCliente(Cliente cliente) {
         String queryText = "UPDATE cliente SET nombre = :nombre, id_direccion = :direccion, " +
