@@ -78,6 +78,9 @@ export default {
       } else if (/\d/.test(this.nombre)) {
         this.errors.nombre = "El nombre no puede contener números.";
       }
+      if(this.nombre === "Admin"){
+        this.errors.nombre = "El nombre no puede ser Admin";
+      }
 
       // Validar dirección (no vacío)
       if (this.latitude === null || this.longitude === null) {
@@ -188,6 +191,7 @@ export default {
         console.log("Longitude:", place.geometry.location.lng());
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
+        this.direccion = place.formatted_address;
       });
     },
   },

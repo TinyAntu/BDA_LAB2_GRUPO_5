@@ -51,6 +51,10 @@
           <v-list-item>
             <v-btn text href="/order100">Ordenes100kmMain</v-btn>
           </v-list-item>
+          <!-- Botón para encontrar el almacén más cercano -->
+          <v-list-item>
+            <v-btn text @click="isModalOpen4 = true">Buscar Almacén Más Cercano</v-btn>
+          </v-list-item>
         </v-list>
       </v-menu>
 
@@ -69,10 +73,6 @@
           </v-btn>
         </template>
         <v-list>
-          <!-- Botón para encontrar el almacén más cercano -->
-          <v-list-item>
-            <v-btn text @click="isModalOpen4 = true">Buscar Almacén Más Cercano</v-btn>
-          </v-list-item>
           <!-- Botón para ordenes enviadas en un radio de 10km de cierto almacen -->
           <v-list-item>
             <v-btn text @click="fetchVariablePriceProduct">Producto con mayor variabilidad</v-btn>

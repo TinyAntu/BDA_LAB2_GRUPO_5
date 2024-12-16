@@ -32,8 +32,8 @@ public class OrdenRepositoryImp implements OrdenRepository {
     }
 
     @Override
-    public List<Orden> getOrdenesById(int limit, int offset, int idCliente) {
-        String queryText = "SELECT id_orden AS idOrden, fecha_orden AS fechaOrden, estado, id_cliente AS idCliente, total " +
+    public List<Orden> getOrdenesById(int limit, int offset, int id_cliente) {
+        String queryText = "SELECT id_orden AS id_orden, fecha_orden AS fecha_orden, estado, id_cliente AS id_cliente, total " +
                 "FROM orden " +
                 "WHERE id_cliente = :idCliente " +
                 "LIMIT :limit OFFSET :offset";
@@ -43,7 +43,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
             return connection.createQuery(queryText)
                     .addParameter("limit", limit)
                     .addParameter("offset", offset)
-                    .addParameter("idCliente", idCliente) // Cambiado a coincidir con el alias
+                    .addParameter("id_cliente", id_cliente)
                     .executeAndFetch(Orden.class);
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());

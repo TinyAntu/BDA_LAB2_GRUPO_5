@@ -115,14 +115,13 @@ INSERT INTO detalle_orden (id_orden, id_producto, cantidad, precio_unitario) VAL
 (7, 16, 1, 25.00);
 
 INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
-('Almacén Arica', 11, 5000, 'activo'),
-('Almacén Rancagua', 12, 4000, 'activo'),
-('Almacén La Pintana', 13, 3500, 'activo'),
-('Almacén Talca', 14, 3000, 'activo'),
-('Almacén Iquique', 15, 2500, 'activo'),
-('Almacén Calama', 16, 2000, 'activo'),
-('Almacén Coquimbo', 17, 1500, 'activo'),
-('Almacén La Serena', 18, 1000, 'inactivo'),
-('Almacén Chillán', 19, 800, 'inactivo'),
-('Almacén Villa Alemana', 20, 1200, 'activo'),
-('Almacen Principal', 21, 10000, 'activo');
+('Almacén Rancagua', 11, 5000, 'activo'),
+('Almacén La Pintana', 12, 4000, 'activo'),
+('Almacén Talca', 13, 3500, 'activo'),
+('Almacén Iquique', 14, 3000, 'activo'),
+('Almacén Calama', 15, 2500, 'activo'),
+('Almacén Coquimbo', 16, 2000, 'activo'),
+('Almacén La Serena', 17, 1500, 'activo'),
+('Almacén Chillán', 18, 1000, 'inactivo'),
+('Almacén Villa Alemana', 19, 800, 'inactivo'),
+('Almacén Principal', 20, 1200, 'activo');
