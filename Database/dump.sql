@@ -2,28 +2,28 @@
 SET client_encoding TO 'UTF8';
 
 -- Insertar direcciones
-INSERT INTO direccion (geom) VALUES
-(ST_SetSRID(ST_MakePoint(-70.57577, -33.61169), 4326)), -- Puente Alto
-(ST_SetSRID(ST_MakePoint(-70.3954, -23.65236), 4326)),  -- Antofagasta
-(ST_SetSRID(ST_MakePoint(-71.55183, -33.02457), 4326)), -- Viña del Mar
-(ST_SetSRID(ST_MakePoint(-71.62963, -33.036), 4326)),   -- Valparaíso
-(ST_SetSRID(ST_MakePoint(-73.11684, -36.72494), 4326)), -- Talcahuano
-(ST_SetSRID(ST_MakePoint(-70.6996, -33.59217), 4326)),  -- San Bernardo
-(ST_SetSRID(ST_MakePoint(-72.94237, -41.4693), 4326)),  -- Puerto Montt
-(ST_SetSRID(ST_MakePoint(-72.59842, -38.73965), 4326)), -- Temuco
-(ST_SetSRID(ST_MakePoint(-73.04977, -36.82699), 4326)), -- Concepción
-(ST_SetSRID(ST_MakePoint(-70.29792, -18.4746), 4326)),  -- Arica
-(ST_SetSRID(ST_MakePoint(-70.74444, -34.17083), 4326)), -- Rancagua
-(ST_SetSRID(ST_MakePoint(-70.63419, -33.58331), 4326)), -- La Pintana
-(ST_SetSRID(ST_MakePoint(-71.65542, -35.4264), 4326)),  -- Talca
-(ST_SetSRID(ST_MakePoint(-70.15027, -20.21326), 4326)), -- Iquique
-(ST_SetSRID(ST_MakePoint(-68.92371, -22.45667), 4326)), -- Calama
-(ST_SetSRID(ST_MakePoint(-71.33947, -29.95332), 4326)), -- Coquimbo
-(ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326)), -- La Serena
-(ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326)), -- Chillán
-(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326)),  -- Villa Alemana
-(ST_SetSRID(ST_MakePoint(-70.64421, -33.41605), 4326)), -- Costanera Center
-(ST_SetSRID(ST_MakePoint(-70.70405, -33.44889), 4326)); -- USACH
+INSERT INTO direccion (geom, formatted_address) VALUES
+(ST_SetSRID(ST_MakePoint(-70.57577, -33.61169), 4326), 'Puente Alto'), -- Puente Alto
+(ST_SetSRID(ST_MakePoint(-70.3954, -23.65236), 4326), 'Antofagasta'), -- Antofagasta
+(ST_SetSRID(ST_MakePoint(-71.55183, -33.02457), 4326), 'Viña del Mar'), -- Viña del Mar
+(ST_SetSRID(ST_MakePoint(-71.62963, -33.036), 4326), 'Valparaíso'), -- Valparaíso
+(ST_SetSRID(ST_MakePoint(-73.11684, -36.72494), 4326), 'Talcahuano'), -- Talcahuano
+(ST_SetSRID(ST_MakePoint(-70.6996, -33.59217), 4326), 'San Bernardo'), -- San Bernardo
+(ST_SetSRID(ST_MakePoint(-72.94237, -41.4693), 4326), 'Puerto Montt'), -- Puerto Montt
+(ST_SetSRID(ST_MakePoint(-72.59842, -38.73965), 4326), 'Temuco'), -- Temuco
+(ST_SetSRID(ST_MakePoint(-73.04977, -36.82699), 4326), 'Concepción'), -- Concepción
+(ST_SetSRID(ST_MakePoint(-70.29792, -18.4746), 4326), 'Arica'), -- Arica
+(ST_SetSRID(ST_MakePoint(-70.74444, -34.17083), 4326), 'Rancagua'), -- Rancagua
+(ST_SetSRID(ST_MakePoint(-70.63419, -33.58331), 4326), 'La Pintana'), -- La Pintana
+(ST_SetSRID(ST_MakePoint(-71.65542, -35.4264), 4326), 'Talca'), -- Talca
+(ST_SetSRID(ST_MakePoint(-70.15027, -20.21326), 4326), 'Iquique'), -- Iquique
+(ST_SetSRID(ST_MakePoint(-68.92371, -22.45667), 4326), 'Calama'), -- Calama
+(ST_SetSRID(ST_MakePoint(-71.33947, -29.95332), 4326), 'Coquimbo'), -- Coquimbo
+(ST_SetSRID(ST_MakePoint(-71.24894, -29.90453), 4326), 'La Serena'), -- La Serena
+(ST_SetSRID(ST_MakePoint(-72.10344, -36.60664), 4326), 'Chillán'), -- Chillán
+(ST_SetSRID(ST_MakePoint(-71.3729, -33.04823), 4326), 'Villa Alemana') -- Villa Alemana
+(ST_SetSRID(ST_MakePoint(-70.6065351, -33.41761942828365), 4326), 'Av. Andrés Bello 2425, 7510689 Providencia, Región Metropolitana'), -- Costanera Center
+(ST_SetSRID(ST_MakePoint(-70.68011784232786, -33.45027786847647), 4326), "Av. Alameda Libertador Bernardo O'Higgins, 9170022 Estación Central, Región Metropolitana"); -- USACH
 
 -- Insertar categorías
 INSERT INTO categoria (nombre) VALUES 
@@ -115,13 +115,14 @@ INSERT INTO detalle_orden (id_orden, id_producto, cantidad, precio_unitario) VAL
 (7, 16, 1, 25.00);
 
 INSERT INTO almacen (nombre, id_direccion, capacidad, estado) VALUES
-('Almacén Rancagua', 11, 5000, 'activo'),
-('Almacén La Pintana', 12, 4000, 'activo'),
-('Almacén Talca', 13, 3500, 'activo'),
-('Almacén Iquique', 14, 3000, 'activo'),
-('Almacén Calama', 15, 2500, 'activo'),
-('Almacén Coquimbo', 16, 2000, 'activo'),
-('Almacén La Serena', 17, 1500, 'activo'),
-('Almacén Chillán', 18, 1000, 'inactivo'),
-('Almacén Villa Alemana', 19, 800, 'inactivo'),
-('Almacén Principal', 20, 1200, 'activo');
+('Almacén Arica', 11, 5000, 'activo'),
+('Almacén Rancagua', 12, 4000, 'activo'),
+('Almacén La Pintana', 13, 3500, 'activo'),
+('Almacén Talca', 14, 3000, 'activo'),
+('Almacén Iquique', 15, 2500, 'activo'),
+('Almacén Calama', 16, 2000, 'activo'),
+('Almacén Coquimbo', 17, 1500, 'activo'),
+('Almacén La Serena', 18, 1000, 'inactivo'),
+('Almacén Chillán', 19, 800, 'inactivo'),
+('Almacén Villa Alemana', 20, 1200, 'activo'),
+('Almacen Principal', 21, 10000, 'activo');
