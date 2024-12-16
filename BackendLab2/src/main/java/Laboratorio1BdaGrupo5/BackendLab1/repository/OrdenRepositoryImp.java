@@ -35,7 +35,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
     public List<Orden> getOrdenesById(int limit, int offset, int id_cliente) {
         String queryText = "SELECT id_orden AS id_orden, fecha_orden AS fecha_orden, estado, id_cliente AS id_cliente, total " +
                 "FROM orden " +
-                "WHERE id_cliente = :idCliente " +
+                "WHERE id_cliente = :id_cliente " +
                 "LIMIT :limit OFFSET :offset";
 
         try (Connection connection = sql2o.open()) {

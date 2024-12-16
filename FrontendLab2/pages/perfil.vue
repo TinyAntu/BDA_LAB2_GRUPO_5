@@ -58,13 +58,13 @@
     },
     methods: {
       async obtenerDatosCliente() {
-        const idCliente = localStorage.getItem('userId'); // Obtener el ID desde localStorage
-        console.log(idCliente);
-        if (idCliente) {
+        const id_cliente = localStorage.getItem('userId'); // Obtener el ID desde localStorage
+        console.log(id_cliente);
+        if (id_cliente) {
           try {
-            const response = await axios.get(`http://localhost:8090/api/cliente/${idCliente}`); // Realizar la solicitud GET
+            const response = await axios.get(`http://localhost:8090/api/cliente/${id_cliente}`); // Realizar la solicitud GET
             this.cliente = response.data;  // Guardar los datos del cliente
-            const formattedAddress = await axios.get(`http://localhost:8090/api/direccion/formattedAddress/${idCliente}`);
+            const formattedAddress = await axios.get(`http://localhost:8090/api/direccion/formattedAddress/${id_cliente}`);
             this.formattedAddress = formattedAddress.data;
           } catch (error) {
             console.error("Error al obtener los datos del cliente", error);

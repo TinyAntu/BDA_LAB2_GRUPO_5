@@ -55,8 +55,8 @@ const checkout = async () => {
         precioUnitario: item.precio || null,
       })),
       orden: {
-        idCliente: localStorage.getItem("userId"),
-        fechaOrden: new Date(),
+        id_cliente: localStorage.getItem("userId"),
+        fecha_orden: new Date(),
         estado: 'pendiente',
         total: null,
       }
